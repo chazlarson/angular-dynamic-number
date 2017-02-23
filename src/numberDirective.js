@@ -112,6 +112,24 @@
     }
     return def_fixed;
   }
+  function initNumMax(attrs_num_max, def_num_max){
+    if(attrs_num_max >= 0){
+      var _num_max = parseInt(attrs_num_max,10);
+      if(isNaN(_num_max) === false && isFinite(_num_max) && _num_max >= -Number.MAX_VALUE){
+        return _num_max;
+      }
+    }
+    return def_num_max;
+  }
+  function initNumMin(attrs_num_min, def_num_min){
+    if(attrs_num_min <= Number.MAX_VALUE){
+      var _num_min = parseInt(attrs_num_min,10);
+      if(isNaN(_num_min) === false && isFinite(_num_min) && _num_min <= Number.MAX_VALUE){
+        return _num_min;
+      }
+    }
+    return def_num_min;
+  }
   function initIsThousand(attrs_thousand, def_thousand){
     if(attrs_thousand === 'false' || attrs_thousand === false) {
       return false;
@@ -341,7 +359,9 @@
       numThousandSep: scope.numThousandSep,
       numPrepend: scope.numPrepend,
       numAppend: scope.numAppend,
-      numFixed: scope.numFixed
+      numFixed: scope.numFixed,
+      numMax: scope.numMax,
+      numMin: scope.numMin
     };
     if(key) {
       properties[key] = value;
@@ -369,6 +389,8 @@
     var prepend = initNumAppendPrepend(properties.numPrepend !== undefined ? properties.numPrepend : strategy.numPrepend);
     var append = initNumAppendPrepend(properties.numAppend !== undefined ? properties.numAppend : strategy.numAppend);
     var isFixed = initIsFixed(properties.numFixed !== undefined ? properties.numFixed : strategy.numFixed, false);
+    var numMax = initNumMax(properties.numMax !== undefined ? properties.numMax : strategy.numMax, Number.MAX_VALUE);
+    var numMin = initNumMin(properties.numMin !== undefined ? properties.numMin : strategy.numMin, -Number.MAX_VALUE);
     if(isPositiveNumber === false && isNegativeNumber === false) {
       throw new Error('Number is set to not be positive and not be negative. Change num_pos attr or/and num_neg attr to true');
     }
@@ -388,7 +410,9 @@
       thousandSeparator: thousandSeparator,
       prepend: prepend,
       append: append,
-      isFixed: isFixed
+      isFixed: isFixed,
+      numMax: numMax,
+      numMin: numMin
     }
   }
 
@@ -408,7 +432,16 @@
     var prepend = parameters.prepend;
     var append = parameters.append;
     var isFixed = parameters.isFixed;
+    var numMax = parameters.numMax;
+    var numMin = parameters.numMin;
 
+	debugger;
+	
+	if (value != '') {
+		if (value > numMax) value = numMax;
+		if (value < numMin) value = numMin;
+	}
+	 
     var parsedValue = String(value);
 
     if(wasPasted) {
@@ -525,7 +558,9 @@
       initObject.isThousandSeparator,
       initObject.thousandSeparator,
       initObject.prepend,
-      initObject.append
+      initObject.append,
+      initObject.numMax,
+      initObject.numMin
     );
     triggerParsers(ngModelController, value);
   }
@@ -546,7 +581,9 @@
         numThousandSep: "@",
         numPrepend: "@",
         numAppend: "@",
-        numFixed: "@"
+        numFixed: "@",
+        numMax: "@",
+        numMin: "@"
       },
       link: function(scope, element, attrs, ngModelController) {
         if(!element[0] || element[0].tagName !== 'INPUT' || (element[0].type !== 'text' && element[0].type !== 'tel')) {
@@ -647,6 +684,20 @@
           initObject = initAllProperties(createPropertyObject(scope, 'numFixed', newProperty), element, attrs, ngModelController, dynamicNumberStrategy);
           onPropertyWatch(ngModelController, initObject);
         });
+        scope.$watch('numMax', function(newProperty, oldProperty ){
+          if(oldProperty === newProperty) {
+            return;
+          }
+          initObject = initAllProperties(createPropertyObject(scope, 'numMax', newProperty), element, attrs, ngModelController, dynamicNumberStrategy);
+          onPropertyWatch(ngModelController, initObject);
+        });
+        scope.$watch('numMin', function(newProperty, oldProperty ){
+          if(oldProperty === newProperty) {
+            return;
+          }
+          initObject = initAllProperties(createPropertyObject(scope, 'numMin', newProperty), element, attrs, ngModelController, dynamicNumberStrategy);
+          onPropertyWatch(ngModelController, initObject);
+        });
         var state = {
           enable: true,
           count: 0
@@ -700,7 +751,7 @@
       };
     })
     .filter('awnum', ['dynamicNumberStrategy', function(dynamicNumberStrategy) {
-      return function(value, numFract, numSep, numRound, numFixed, numThousand, numThousandSep, numPrepend, numAppend) {
+      return function(value, numFract, numSep, numRound, numFixed, numThousand, numThousandSep, numPrepend, numAppend, numMax, numMin) {
         var strategy = {};
         var fractionPart;
         if(angular.isString(numFract)) {
@@ -711,6 +762,14 @@
         var fractionSeparator = initSeparator(numSep !== undefined ? numSep : strategy.numSep, '.');
         var roundFunction = initRound(numRound !== undefined ? numRound : strategy.numRound, Math.round);
         var isFixed = initIsFixed(numFixed !== undefined ? numFixed : strategy.numFixed, false);
+        var numMax = initNumMax(numMax !== undefined ? numMax : strategy.numMax, Number.MAX_VALUE);
+        var numMin = initNumMin(numMin !== undefined ? numMin : strategy.numMin, -Number.MAX_VALUE);
+
+        if(numMax <= numMin) {
+          numMax = Number.MAX_VALUE;
+          numMin = -Number.MAX_VALUE;
+        }
+
         var isThousandSeparator = initIsThousand(numThousand !== undefined ? numThousand : strategy.numThousand, false);
         var thousandSeparator = initThousandSeparator(numThousandSep !== undefined ? numThousandSep : strategy.numThousandSep, fractionSeparator, fractionSeparator==='.'?',':'.');
         var prepend = initNumAppendPrepend(numPrepend !== undefined ? numPrepend : strategy.numPrepend);

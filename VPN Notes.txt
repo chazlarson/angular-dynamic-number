@@ -1,0 +1,23 @@
+VPN GUI - MAC Instruction
+
+To install Mac VPN client on your client devices: 
+Step 1: Select the Enable VPN Service check box and click the Apply button. 
+Step 2: Download and install application "OpenVPN Connect" utility from App Store. 
+Step 3: Click the "For non-Windows" button to download the configuration files for your VPN clients. 
+Step 4: Unzip the configuration files you have just downloaded and use iTune to upload them to the folder of "OpenVPN Connect" on your device. 
+Step 5: Run the application "OpenVPN Connect", you will find a profile related with the configuration file you just uploaded. Then connect with the profile. 
+Step 6: For help connecting using OpenVPN clients, please refer to http://openvpn.net/index.php/open-source/documentation/howto.html#quick and http://openvpn.net/index.php/access-server/docs/admin-guides-sp-859543150/howto-desktop-client-configuration/495-connecting-to-openvpn-access-server-using-the-connect-client-on-mac.html 
+Note: if you want to make any change in Advanced Configurations section, please make the changes before you download the configuration files in Step 3.
+
+
+
+VPN GUI - iPhone Instruction
+
+To install iPhone/iPad VPN client on your client devices: 
+Step 1: Select the Enable VPN Service check box and click the Apply button. 
+Step 2: Download the client utility (e.g. OpenVPN Connect) from Apple App Store and install it on the devices where you want to run the VPN client. 
+Step 3: Click the "For Smart Phone" button to download the configuration files for your VPN clients. 
+Step 4: Unzip the configuration files you have just downloaded and use iTune to upload them to the folder of "OpenVPN Connect" on your device. 
+Step 5: Client utility must be installed and import the configuration file, please refer to http://www.vpngate.net/en/howto_openvpn.aspx#ios 
+Note: if you want to make any change in Advanced Configurations section, please make the changes before you download the configuration files in Step 3.
+

@@ -28,11 +28,31 @@
       <div class="row">
         <div class="col-sm-10 com-sm-offset-1 col-md-8 col-md-offset-2">
           <h1>Example of angular dynamic number directive</h1>
-          <form name="directiveForm" class="form-horizontal" ng-init="value1 = '';value2 = '';value3 = '';value4 = '';value5 = '';value6 = '';value7 = '';value8='';value9='';value10='';value11='';value12='';value13='';value14='';">
+          <form name="directiveForm" class="form-horizontal" ng-init="value1 = '';value2 = '';value3 = '';value4 = '';value5 = '';value6 = '';value7 = '';value8='';value9='';value10='';value11='';value12='';value13='';value14='';value15='';value16='';value17='';value18='';value19='';">
+            <div class="form-group">
+              <label class="control-label">Number may be positive or negative, decimal separator dot, min -1.1, max 27.8</label>
+              <input type="text" ng-trim=false ng-model="value19" class="form-control" awnum num-min=-1.1 num-max=27.8 placeholder='e.g. XXXX.XX'>
+              <div>How looks model: {{value19}}</div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Number may be positive or negative, decimal separator dot, min 5</label>
+              <input type="text" ng-trim=false ng-model="value18" class="form-control" awnum num-min=5 placeholder='e.g. XXXX.XX'>
+              <div>How looks model: {{value18}}</div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Number may be positive or negative, decimal separator dot, max 500</label>
+              <input type="text" ng-trim=false ng-model="value17" class="form-control" awnum num-max=500 placeholder='e.g. XXXX.XX'>
+              <div>How looks model: {{value17}}</div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Number may be positive or negative, decimal separator dot, min -10, max 10</label>
+              <input type="text" ng-trim=false ng-model="value16" class="form-control" awnum num-min=-10 num-max=10 placeholder='e.g. XXXX.XX'>
+              <div>How looks model: {{value16}}</div>
+            </div>
             <div class="form-group">
               <label class="control-label">Number may be positive or negative, decimal separator comma</label>
-              <input type="text" ng-trim=false ng-model="value1" class="form-control" awnum num-sep="," num-int=4 num-fract=2 placeholder='e.g. XXXX,XX'>
-              <div>How looks model: {{value1}}</div>
+              <input type="text" ng-trim=false ng-model="value15" class="form-control" awnum num-sep="," num-int=4 num-fract=2 placeholder='e.g. XXXX,XX'>
+              <div>How looks model: {{value15}}</div>
             </div>
             <div class="form-group">
               <label class="control-label">Number may be positive or negative, decimal separator comma and fixed true</label>

@@ -1,10 +1,31 @@
 # Angular Dynamic Number
-[![Build Status](https://travis-ci.org/uhlryk/angular-dynamic-number.svg)](https://travis-ci.org/uhlryk/angular-dynamic-number)
-[![Downloads](https://img.shields.io/npm/dt/angular-dynamic-number.svg)](https://www.npmjs.com/package/angular-dynamic-number)
-[![Downloads](https://img.shields.io/npm/dm/angular-dynamic-number.svg)](https://www.npmjs.com/package/angular-dynamic-number)
-[![NPM version](https://img.shields.io/npm/v/angular-dynamic-number.svg)](https://www.npmjs.com/package/angular-dynamic-number)
-[![Bower](https://img.shields.io/bower/v/angular-dynamic-number.svg)](http://bower.io/search/?q=angular-dynamic-number)
 
+Chaz' fork adds support for minimum and maximum values.
+
+## Options
+Options are also input field attributes
+
+**num-max**:
+
+Set maximum value for input (default Number.MAX_VALUE).
+
+**num-min**:
+
+Set minimum value for input (default -Number.MAX_VALUE).
+
+## Example:
+Negative or positive number with max value 782.5 and comma as separator
+
+    <input type='text' ng-trim=false ng-model='value4' awnum num-sep=',' num-int=4 num-max=782.5 num-fract=2>
+
+
+If user enters a number below the min, it will be snapped to the min; same for max.
+
+If user sets a min greater than the max on a given field, min and max will be set to their defaults: -Number.MAX_VALUE and Number.MAX_VALUE, respectively.
+
+Contents of the original README.md follows.
+
+---
 Highly customizable AngularJS directive for numbers.
 It validates inputs in realtime (if user press not acceptable character
 it wont appear in input field). This directive may be configured for each input  (you can set number of digits in integer part and number of digits in decimal part, you can set decimal separator, accept only positive or negative values)
@@ -81,6 +102,14 @@ Add the ```awnum``` attribute to input fields:
 
 ## Options
 Options are also input field attributes
+
+**num-max**:
+
+Set maximum value for input (default Number.MAX_VALUE).
+
+**num-min**:
+
+Set minimum value for input (default -Number.MAX_VALUE).
 
 **num-int**:
 
@@ -235,6 +264,10 @@ This is angular input directive parameter. By default it has value true, which m
 Therefore the best result is when you set for input ng-trim=false
 
 ## Example:
+Negative or positive number with max value 782.5 and comma as separator
+
+    <input type='text' ng-trim=false ng-model='value4' awnum num-sep=',' num-int=4 num-max=782.5 num-fract=2>
+
 Negative number with max value 9999.99 and comma as separator
 
     <input type='text' ng-trim=false ng-model='value4' awnum num-sep=',' num-int=4 num-fract=2 num-pos=false>
