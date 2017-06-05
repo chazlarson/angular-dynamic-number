@@ -23,6 +23,9 @@ If user enters a number below the min, it will be snapped to the min; same for m
 
 If user sets a min greater than the max on a given field, min and max will be set to their defaults: -Number.MAX_VALUE and Number.MAX_VALUE, respectively.
 
+## Demo:
+[link](http://htmlpreview.github.io/?https://github.com/chazlarson/angular-dynamic-number/blob/master/examples/index.html)
+
 Contents of the original README.md follows.
 
 ---
